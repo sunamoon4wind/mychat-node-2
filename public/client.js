@@ -11,6 +11,23 @@ socket.on(
         console.log('connect');
     });
 
+// 「Join」ボタンを押したときの処理
+$('#join-form').submit(
+    () => {
+        console.log('#input_nickname :', $('#input_nickname').val());
+
+        if ($('#input_nickname').val()) {
+            // サーバーに、イベント名'join' で入力テキストを送信
+            socket.emit('join', $('#input_nickname').val());
+
+            $('#nickname').html($('#input_nickname').val());
+            $('#join-screen').hide();
+            $('#chat-screen').show();
+        }
+
+        return false;   // フォーム送信はしない
+    });
+
 // 「Send」ボタンを押したときの処理
 $('form').submit(
     () => {
@@ -35,7 +52,8 @@ socket.on(
         console.log('spread message :', objMessage);
 
         // メッセージの整形
-        const strText = objMessage.strDate + ' - ' + objMessage.strMessage;
+        //const strText = objMessage.strDate + ' - ' + objMessage.strMessage;
+        const strText = objMessage.strDate + ' - [' + objMessage.strNickname + '] ' + objMessage.strMessage;
 
         // 拡散されたメッセージをメッセージリストに追加
         //const li_element = $( '<li>' ).text( strMessage );
