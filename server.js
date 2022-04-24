@@ -35,7 +35,6 @@ io.on(
             (strMessage) => {
                 console.log('new message', strMessage);
             });
-
     });
 
 
