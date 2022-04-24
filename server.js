@@ -30,11 +30,11 @@ io.on(
             });
         // 新しいメッセージ受信時の処理
         // ・クライアント側のメッセージ送信時の「socket.emit( 'new message', $( '#input_message' ).val() );」に対する処理
-        // socket.on(
-        //     'new message',
-        //     (strMessage) => {
-        //         console.log('new message', strMessage);
-        //     });
+        socket.on(
+            'new message',
+            (strMessage) => {
+                console.log('new message', strMessage);
+            });
     });
 
 
