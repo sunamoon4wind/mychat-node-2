@@ -12,6 +12,7 @@ const io = socketIO(server);
 
 // 定数
 const PORT = process.env.PORT || 1337;
+const SYSTEMNICKNAME = '**system**'
 
 // 関数
 // 数字を２桁の文字列に変換
@@ -26,6 +27,9 @@ const makeTimeString =
         return toDoubleDigitString(time.getFullYear()) + '/' + toDoubleDigitString(time.getMonth() + 1) + '/' + toDoubleDigitString(time.getDate())
             + ' ' + toDoubleDigitString(time.getHours()) + ':' + toDoubleDigitString(time.getMinutes()) + ' ' + toDoubleDigitString(time.getSeconds());
     }
+
+// グローバル変数
+let iCountUser = 0; // ユーザー数
 
 // 接続時の処理
 // ・サーバーとクライアントの接続が確立すると、
@@ -44,6 +48,24 @@ io.on(
             'disconnect',
             () => {
                 console.log('disconnect');
+
+                if (strNickname) {
+                    // ユーザー数の更新
+                    iCountUser--;
+
+                    // メッセージオブジェクトに現在時刻を追加
+                    const strNow = makeTimeString(new Date());
+
+                    // システムメッセージの作成
+                    const objMessage = {
+                        strNickname: SYSTEMNICKNAME,
+                        strMessage: strNickname + ' left.' + " there are " + iCountUser + " participants",
+                        strDate: strNow
+                    }
+
+                    // 送信元含む全員に送信
+                    io.emit('spread message', objMessage);
+                }
             });
 
         // 入室時の処理
@@ -55,6 +77,22 @@ io.on(
 
                 // コネクションごとで固有のニックネームに設定
                 strNickname = strNickname_;
+
+                // ユーザー数の更新
+                iCountUser++;
+
+                // メッセージオブジェクトに現在時刻を追加
+                const strNow = makeTimeString(new Date());
+
+                // システムメッセージの作成
+                const objMessage = {
+                    strNickname: SYSTEMNICKNAME,
+                    strMessage: strNickname + ' joined.' + " there are " + iCountUser + " participants",
+                    strDate: strNow
+                }
+
+                // 送信元含む全員に送信
+                io.emit('spread message', objMessage);
             });
 
         // 新しいメッセージ受信時の処理
