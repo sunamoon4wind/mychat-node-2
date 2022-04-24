@@ -50,7 +50,7 @@ server.listen(
     });
 
 // 「Send」ボタンを押したときの処理
-$('form').submit(
+//$('form').submit(
     //  () => {
     //    console.log('#input_message :', $('#input_message').val());
 
@@ -62,4 +62,4 @@ $('form').submit(
     // }
     // return false;   // フォーム送信はしない
     //}
-);
+//);
