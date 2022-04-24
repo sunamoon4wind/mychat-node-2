@@ -64,4 +64,4 @@ server.listen(
 //     });
 
 
-document.getElementsByClassName('h1').text('こんにちは');
+//document.getElementsByClassName('h1').text('こんにちは');
