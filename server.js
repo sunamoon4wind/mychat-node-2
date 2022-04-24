@@ -63,5 +63,7 @@ server.listen(
 //         return false;   // フォーム送信はしない
 //     });
 
+let test = document.getElementsByClassName('h1');
+test.text('こんにちは');
 
 //document.getElementsByClassName('h1').text('こんにちは');
