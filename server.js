@@ -62,8 +62,13 @@ server.listen(
 //         }
 //         return false;   // フォーム送信はしない
 //     });
+var btn = document.getElementById('btn');
 
-let test = document.getElementsByClassName('h1');
-test.text('こんにちは');
+btn.addEventListener('click', function () {
+    alert(document.myform.mytext.value);
 
-//document.getElementsByClassName('h1').text('こんにちは');
+    //submit()でフォームの内容を送信
+    document.myform.submit();
+})
+
+
