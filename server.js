@@ -34,6 +34,9 @@ io.on(
             'new message',
             (strMessage) => {
                 console.log('new message', strMessage);
+                // 送信元含む全員に送信
+                io.emit('spread message', strMessage);
+
             });
     });
 
